@@ -14,18 +14,12 @@ export default function ProfilePage() {
       toast.success('Logout success')
       router.push('/login')
      } catch (error) {
-      console.log('====================================');
-      console.log(error.message);
-      console.log('====================================');
       toast.error(error.message)
     }
   }
 
   const getUserDetails = async () => {
     const res = await axios.get('/api/users/profile')
-    console.log('====================================');
-    console.log(res.data);
-    console.log('====================================');
     setData(res.data.data._id)
   }
   return (
