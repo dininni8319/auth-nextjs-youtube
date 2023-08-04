@@ -7,8 +7,7 @@ export default function UserProfile({params}: any) {
           <span
             className='p-2 rounded bg-orange-500 text-black'
           >
-            Hello, {params.id}!
-
+            Hello, <span className="capitalize">{params.id}</span> 
           </span>
         </p>
     </div>
