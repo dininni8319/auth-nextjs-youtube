@@ -2,10 +2,12 @@
 import Link from "next/link"
 import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { axios } from "axios"
+import axios from "axios"
+import toast, { Toaster } from 'react-hot-toast'
 
-export default function SignupPage(params:type) {
+export default function SignupPage() {
   const router = useRouter()
+  const [ loading, setLoading ] = useState(false)
   const [ user, setUser ] = useState({
     email: "",
     password:"",
@@ -22,11 +24,24 @@ export default function SignupPage(params:type) {
     }
   }, [user])
   const onSignup = async () => {
-
-  }
+    setLoading(true)
+    try {
+      toast.success('Sign Up Success')
+      const response = await axios.post('/api/users/signup', user)
+      console.log("🚀 ~ file: page.tsx:31 ~ onSignup ~ response:", response.data)
+      setLoading(false)
+      router.push('/login')
+    } catch (error) {
+      const errMessage = error.message || 'Sign up failed'
+       toast.error(errMessage)
+       setLoading(false)
+    } finally {
+      setLoading(false)
+    }
+  } 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <h1 className="text-white text-center text-2xl">Sign Up</h1>
+      <h1 className="text-white text-center text-2xl">{loading ? "Processing" : 'Sign Up'}</h1>
        <hr />
       <label htmlFor="username">Username</label>
       <input 
@@ -63,6 +78,7 @@ export default function SignupPage(params:type) {
           {buttonDisabled ? "No Sign up" : "Signup"}
         </button>
         <Link href="/login" className="text-white">Visit login</Link>
+        <Toaster />
     </div>
   )
 }

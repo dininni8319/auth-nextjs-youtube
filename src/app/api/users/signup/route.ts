@@ -1,5 +1,5 @@
-import { connect } from "@/DBConfig/dbConfig";
-import User from "@/models/userModel"
+import connect from "@/DBConfig/dbConfig";
+import User from "@/models/userModel.js"
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from 'bcryptjs'
 
@@ -9,10 +9,6 @@ export async function POST(request: NextRequest) {
 
   try {
     const { username, email, password } = await request.json()
-
-    console.log('====================================');
-    console.log(username, email, password);
-    console.log('====================================');
 
     if (!username || !email || !password) {
       return NextResponse.json(

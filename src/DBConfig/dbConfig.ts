@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export default function connect(params:type) {
+export default function connect() {
   try {
     mongoose.connect(process.env.MONGO_URL!)
     const connection = mongoose.connection
@@ -17,6 +17,5 @@ export default function connect(params:type) {
     console.log('====================================');
     console.log(error);
     console.log('====================================');
-    
   } 
 }
